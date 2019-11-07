@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+   <body>
+
+      <table border = 1>
+         <thead>
+            <td>City</td>
+            <td>Time</td>
+            <td>summary</td>
+            <td>temperatureMin</td>
+            <td>temperatureMax</td>
+         </thead>
+
+         {% for row in rows %}
+            <tr>
+               <td>{{row["city"]}}</td>
+               <td>{{row["time"]}}</td>
+               <td>{{row["summary"]}}</td>
+               <td>{{row['temperatureMin']}}</td>
+               <td>{{row['temperatureMax']}}</td>
+            </tr>
+         {% endfor %}
+      </table>
+
+      <a href = "/">Go back to home page</a>
+
+   </body>
+</html>

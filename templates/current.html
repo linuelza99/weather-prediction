@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang = "en" >
+
+<head >
+    <meta charset = "UTF-8" >
+    <meta content = "width=device-width, initial-scale=1.0" name = "viewport" >
+    <meta content = "ie=edge" http-equiv = "X-UA-Compatible" >
+    <title >DBMS</title >
+    <link crossorigin = "anonymous"
+          href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity = "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          rel = "stylesheet" >
+    
+    <link href = "https://fonts.googleapis.com/css?family=Lobster|Nixie+One&display=swap" rel = "stylesheet" >
+    
+    <script crossorigin = "anonymous"
+            integrity = "sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            src = "https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script >
+    <script crossorigin = "anonymous"
+            integrity = "sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script >
+    <script crossorigin = "anonymous"
+            integrity = "sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script >
+    <!---->
+    <!--<link href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" rel = "stylesheet" >-->
+    
+    <style rel = "stylesheet" >
+        body {background:#ccc}
+        
+        html,body{
+            height:100%;
+        }
+        
+
+        .effect8
+        {
+            position:relative;
+            -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+               -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        }
+        .effect8:before, .effect8:after
+        {
+            content:"";
+            position:absolute;
+            z-index:-1;
+            -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+            -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+            box-shadow:0 0 20px rgba(0,0,0,0.8);
+            top:10px;
+            bottom:10px;
+            left:0;
+            right:0;
+            -moz-border-radius:100px / 10px;
+            border-radius:100px / 10px;
+        }
+        .effect8:after
+        {
+            right:10px;
+            left:auto;
+            -webkit-transform:skew(8deg) rotate(3deg);
+               -moz-transform:skew(8deg) rotate(3deg);
+                -ms-transform:skew(8deg) rotate(3deg);
+                 -o-transform:skew(8deg) rotate(3deg);
+                    transform:skew(8deg) rotate(3deg);
+        }
+    
+    /*==================================================
+     * Effect 4
+     * ===============================================*/
+    .effect4
+    {
+      position: relative;
+    }
+    .effect4:after
+    {
+      z-index: -1;
+      position: absolute;
+      content: "";
+      bottom: 15px;
+      right: 10px;
+      left: auto;
+      width: 50%;
+      top: 80%;
+      max-width:300px;
+      background: #777;
+      -webkit-box-shadow: 0 15px 10px #777;
+      -moz-box-shadow: 0 15px 10px #777;
+      box-shadow: 0 15px 10px #777;
+      -webkit-transform: rotate(3deg);
+      -moz-transform: rotate(3deg);
+      -o-transform: rotate(3deg);
+      -ms-transform: rotate(3deg);
+      transform: rotate(3deg);
+    }
+   
+    #org-name{
+        font-family: 'Nixie One', cursive;
+        //font-family: 'Lobster', cursive;
+    }
+
+    #header{
+        border-radius:0px;
+        margin-bottom:50px;
+        padding:50px;
+    }
+    
+
+    .container2{
+        width: auto;
+        max-width: 680px;
+        padding: 0 15px;
+    }
+    
+
+    
+    #boxhead{
+        box-radius:0px;
+    }
+    
+    .topnav {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    /* Navbar links */
+    .topnav a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    /* Links - change color on hover */
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    
+    textarea:focus,
+    textarea.form-control:focus,
+    input.form-control:focus,
+    input[type=text]:focus,
+    input[type=password]:focus,
+    input[type=email]:focus,
+    input[type=number]:focus,
+    button.btn:focus,
+    [type=text].form-control:focus,
+    [type=password].form-control:focus,
+    [type=email].form-control:focus,
+    [type=tel].form-control:focus,
+    [contenteditable].form-control:focus {
+      box-shadow: inset 0 0px 0 #ddd;
+    }
+    
+    #main-container{
+        min-height:100%;
+    }
+    
+    #main{
+        overflow:auto;
+        padding-bottom:50px;
+    }
+
+    /* Footer */
+    .footer{
+        position:relative;
+        bottom:0px;
+        left:0px;
+        background:#343a40;
+        height:auto;
+        width:100%;
+    }
+
+ 
+
+    
+    
+    
+    
+    
+    
+    </style >
+
+</head >
+
+<body >
+    <div id = "main-container" >
+        <header class = "header" >
+            <div class = "jumbotron text-center" id = "header" >
+                <div class = "container-fluid bg-1" >
+                    <h1 class = "title" id = "org-name" >
+                        Weather Prediction
+                    </h1 >
+                </div >
+            </div >
+        </header >
+
+ <div id = "main" >
+            
+                <div class="topnav">
+                  <a href="/current">Current Weather</a>
+                  <a href="/historic">Old Weather Data</a>
+                  <a href="/prediction">Prediction</a>
+                  <a href="/" style="float:right">Information</a>
+                
+            </div >
+        </div >
+        
+        <div id = "main" >
+            <div class = "container" >
+                <div class = "row justify-content-md-center" >
+                    <div class = "col-12 col-md-6" >
+                        <form method = "POST" >
+                            <div class = "form-group" >
+                                <div class = "input-group mb-3" >
+                                    <input class = "form-control" name = "city"
+                                           placeholder = "City Name" type = "text" >
+                                    <div class = "input-group-append" >
+                                        <button class = "btn btn-dark" id = "add_city" >
+                                            Add City
+                                        </button >
+                                    
+                                    </div >
+                                
+                                </div >
+                            </div >
+                        </form >
+                        {% with messages = get_flashed_messages(with_categories = true) %}
+                        
+                        {% if messages %}
+                        
+                        {% for category,message in messages %}
+                        <div class = "alert alert-{{category}} alert-dismissible fade show" role = "alert" >
+                            {{ message }}
+                            <button aria-label = "Close" class = "close" data-dismiss = "alert" type = "button" >
+                                <span aria-hidden = "true" >&times;</span >
+                            </button >
+                        </div >
+                        {% endfor %}
+                        
+                        {% endif %}
+                        
+                        {% endwith %}
+                    </div >
+                </div >
+            </div >
+            <div class = "col-12" id = "new" >
+                
+                
+                {% if not weather_data %}
+                
+                <div class = "col-md-4 mt-5 mx-auto" >
+                    <h4 style = "text-align:center" >Add a City in Database !</h4 >
+                    <img alt = "Empty Box Image"
+                         src = "https://media.giphy.com/media/3ohhwsjzpejaSWoTkI/giphy.gif"
+                         width = "100%" >
+                </div >
+                
+                
+                {% endif %}
+                
+                
+                <div class = "mt-5 d-flex justify-content-center align-content-around flex-wrap" >
+                    
+                    {% for weather in weather_data %}
+                    
+                    
+                    <div class = "col-12 col-md-3 bg-white p-0 mr-md-5 mb-4 mb-md-5 rounded effect4"
+                         id = "box" >
+                        
+                        <div class = "alert-warning rounded-top pt-2 pb-2 pl-3 pr-3" role = "alert" >
+                            <strong class = "font-weight-light" style = "font-size:20px;" >{{ weather.city }}</strong >
+                            <a href = "{{ url_for('delete_city', name = weather.city ) }}" >
+                                <button aria-label = "Close" class = "close" type = "button" >
+                                    <span aria-hidden = "true" style = "font-size:20px;" >&times</span >
+                                </button >
+                            </a >
+                        </div >
+                        
+                        <div class = "pl-3 pr-3 pt-2 pb-0 d-flex justify-content-between" >
+                            
+                            <div class = "p-0" >
+                                
+                                <figure class = "p-0" >
+                                    <img alt = "Image" class = "figure-img img-fluid"
+                                         src = "/static/weather/{{weather.icon}}.png"
+                                         style = "width:55px;height:55px;border:0;" >
+                                </figure >
+                                
+                                
+                                <p >{{ weather.description }}</p >
+                            </div >
+                            
+                            <div class = "p-0" >
+                                
+                                <div class = "p-0" ><h1 style = "font-size:50px" >{{ weather.temperature }}°</h1 >
+                                </div >
+                                <div class = "p-0 h-auto" >
+                                    <p class = "small text-dark p-0 m-0" >Humidity: {{ weather.humidity}}</p >
+                                    <p class = "small text-dark p-0 m-0" >Wind Speed: {{ weather.wind}}</p >
+                                </div >
+                            </div >
+                        
+                        </div >
+                    
+                    
+                    </div >
+                    
+                    
+                    {% endfor %}
+                </div >
+            </div >
+        </div >
+
+      
+    </div>
+   
+    <div class = "footer" >
+        
+        <div class = "py-0 d-flex flex-md-row justify-content-around flex-column" >
+            <div class = "mb-0 pb-0" >
+                <p class = "text-light small text-center p-2 mb-0" >
+                    <a class = "text-warning" href = "https://github.com/linuelza99" >
+                        Linu 
+                    </a >
+                </p >
+            </div >
+            <div class = "mb-0 pb-0" >
+                <p class = "text-light small text-center p-2 mb-0" >Made with
+                    <a class = "text-warning" href = "https://openweathermap.org/api" >
+                        (https://openweathermap.org/api)
+                    </a >
+                </p >
+            </div >
+        
+        </div >
+        
+        <hr color = "grey" style = "margin:0 auto;" width = "90%" >
+        
+        <div class = "mb-0 pb-1" >
+            <p class = "text-light small text-center p-2"
+               style = "padding-bottom:0px;margin-bottom:0px" >&copy; Weather | Designed by Linu,Neil,Ishan,Varchas </p >
+        </div >
+    
+    </div >
+</body >
+
+</html >
