@@ -31,7 +31,7 @@
          <center><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></center>
     </form>
 	 {% if search!=NULL %}
-	 	{% for row in search %}
+	 	
 	 	 <table border = 1>
          <thead>
             <th>City</th>
@@ -40,6 +40,7 @@
             <th>temperatureMin</th>
             <th>temperatureMax</th>
          </thead>
+         {% for row in search %}
             <tr>
                <td>{{row["city"]}}</td>
                <td>{{row["time"]}}</td>
@@ -47,9 +48,11 @@
                <td>{{row['temperatureMin']}}</td>
                <td>{{row['temperatureMax']}}</td>
             </tr>
-          </table>
+          
          {% endfor %}
+</table>
 	 {% endif %}
+
 	 <br>
 </div>
 </div>

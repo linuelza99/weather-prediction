@@ -105,7 +105,7 @@ def historic():
         start_date = request.form['start_date']
         end_date = request.form['end_date']
 
-        con = sqlite3.connect('data.sqlite')
+        con = sqlite3.connect('weather.db')
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
