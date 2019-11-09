@@ -100,18 +100,39 @@ def index_post():
 
 def historic():
     if request.method == 'POST':
-        val = request.form['city']
-        print(val)
+        city = request.form['city']
+        print(city)
         start_date = request.form['start_date']
         end_date = request.form['end_date']
-
+        if not end_date:
+            end_date=float("inf")
         con = sqlite3.connect('weather.db')
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
-        cur.execute("select city,time,summary,temperatureMin,temperatureMax from weather_data where city=? and time>? and time<=?",(val,start_date,end_date))
+        command="select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where time>\""+str(start_date)+"\" and time<=\""+str(end_date)+"\""
+
+        if request.form.get('citycheck'):
+            command+=" and city='"+str(city)+"'"
+        if request.form.get('temperatureMin'):
+            command+=" and temperatureMin"+request.form['minTempCompare']+""+request.form['minTempVal']+""
+        if request.form.get('temperatureMax'):
+            command+=" and temperatureMax"+request.form['maxTempCompare']+""+request.form['maxTempVal']+""
+        if request.form.get('precipIntensity'):
+            command+=" and precipIntensity"+request.form['precipIntensityCompare']+""+request.form['precipIntensityVal']+""
+        command+=" order by time"
+        print(command)
+        """if (city!='All'):
+            cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where city=? and time>? and time<=?",(city,start_date,end_date))
+        else:
+            cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where time>? and time<=?",(start_date,end_date))
+        """
+        #cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where time>? and time<=?",(start_date,end_date))
+        cur.execute(command)
+        
+        
         search = cur.fetchall();
-        cur.execute("select city,time,summary,temperatureMin,temperatureMax from weather_data")
+        cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data")
         rows = cur.fetchall();
 
 
@@ -122,7 +143,7 @@ def historic():
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
-        cur.execute("select city,time,summary,temperatureMin,temperatureMax from weather_data")
+        cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data")
 
         rows = cur.fetchall();
         print(rows)
@@ -187,7 +208,7 @@ def update():
 
 
     def get_expected_dates_and_locations(days_back, locations):
-        end = datetime.datetime.today() - datetime.timedelta(days=1)
+        end = datetime.datetime.today()
         start = end - datetime.timedelta(days=days_back)
         step = datetime.timedelta(days=1)
         expected_days_and_locations = set()
@@ -242,7 +263,7 @@ def update():
     missing_data = get_weather_data(missing_days_and_locations)
     writecsv(settings.WEATHER_HISTORY_FILE, required_fields + ['daylight'] + ['city'], existing_data + missing_data)
 
-    conn = sqlite3.connect('/home/linu/GIT repos/weather_changes/weather.db')
+    conn = sqlite3.connect('/home/linu/GIT repos/weather-prediction/weather.db')
     c = conn.cursor()
 
     df = pandas.read_csv('weather.csv')
@@ -262,8 +283,8 @@ def list():
    con.row_factory = sqlite3.Row
 
    cur = con.cursor()
-   cur.execute("select city,time,summary,temperatureMin,temperatureMax from weather_data")
-
+   cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data")
+        
    rows = cur.fetchall();
    print(rows)
    return render_template("list.html",rows = rows)

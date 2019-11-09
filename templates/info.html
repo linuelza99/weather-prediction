@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div>
+<body onload="noloadImage()">
+<div align=center>
 	<h3>
 		Aims
 	</h3>
 	<p> This program aims to tell you the current weather of your favourite cities, the historic weather of certain cities, and the future weather of certain cities as well.</p>
 
 	
-<center><img src="/static/weather/info.png" onload="loadImage()" width="100" height="132"></center>
+<img src="/static/weather/info.png" onload="noloadImage()" width="100" height="132">
 	<div class="w3-bar" align='center'>
   <button class="w3-button w3-black" onclick="showLoad()"><a href="/update">Update Database</a></button>
-
+  <br>
+  <br>
   <div id="loader" align='center'></div>
   <script>
   	function showLoad() {
@@ -21,12 +22,12 @@
     x.style.display = "block";
   
 	}
-function loadImage() {
+function noloadImage() {
  var x = document.getElementById("loader");
       x.style.display = "none";
   }
     </script>
 </div>
 </div>
-
+</body>
 {% endblock %}

@@ -3,8 +3,10 @@
 {% block content %}
 <div>
 <div>
+  <center><h2>Historic Weather Data</h2>
+<h6> Choose the parameters you want to filter with by clicking on the approproate checkboxes.</h6></center><br>
 	<form action = "{{url_for('historic')}}" method = "POST">
-          <label for="sel"> Choose the city:</label>
+          <input type="checkbox" name="citycheck" value="city"> City<br>
           <select name="city" class="form-control" id="city" required>
             <option value="Tamil Nadu">Tamil Nadu</option>
             <option value="Telangana">Telangana</option>
@@ -24,21 +26,59 @@
             <option value="Rajasthan">Rajasthan</option>
             <option value="Himachal Pradesh">Himachal Pradesh</option>
             <option value="Delhi">Delhi</option>
+            <option value="Goa">Goa</option>
+            <option value="Mangalore">Mangalore</option>
+
           </select><br>
+          <input type="checkbox" name="temperatureMin" value="temperatureMin"> Minimum temperature 
+          <select name="minTempCompare" id="minTempCompare" required>
+            <option value="=">=</option>
+            <option value=">">></option>
+            <option value="<"><</option>
+            <option value=">=">>=</option>
+             <option value="<="><=</option></select>
+            <input type="search" name="minTempVal" placeholder="Value" aria-label="Value">
+            <br>
+            <br>
+          <input type="checkbox" name="temperatureMax" value="temperatureMax"> Maximum temperature 
+          <select name="maxTempCompare" id="maxTempCompare" required>
+            <option value="=">=</option>
+            <option value=">">></option>
+            <option value="<"><</option>
+            <option value=">=">>=</option>
+             <option value="<="><=</option></select>
+            <input type="search" name="maxTempVal" placeholder="Value" aria-label="Value">
+            <br>
+            <br>
+          <input type="checkbox" name="precipIntensity" value="precipIntensity"> Precipitation Intensity
+          <select name="precipIntensityCompare" id="precipIntensityCompare" required>
+            <option value="=">=</option>
+            <option value=">">></option>
+            <option value="<"><</option>
+            <option value=">=">>=</option>
+             <option value="<="><=</option></select>
+            <input type="search" name="precipIntensityVal" placeholder="Value" aria-label="Value"><br>
+            <br>
+
          <!--<input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" required><br>-->
          <center><p>Start Date: <input type="date" name="start_date">
   		 End Date: <input type="date" name="end_date"></p></center>
-         <center><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></center>
+         <center><button class="w3-bar-item w3-button w3-teal" type="submit">Search</button></center>
     </form>
+    <br>
 	 {% if search!=NULL %}
 	 	
 	 	 <table border = 1>
-         <thead>
-            <th>City</th>
-            <th>Time</th>
-            <th>Summary</th>
-            <th>temperatureMin</th>
-            <th>temperatureMax</th>
+          <thead>
+            <td>City</td>
+            <td>Time</td>
+            <td>Summary</td>
+            <td>Minimum Temperature</td>
+            <td>Maximum Temperature</td>
+            <td>Precipitation Intensity</td>
+            <td>Precipitation Probability</td>
+            <td>Precipitation Type</td>
+            <td>Daylight</td>
          </thead>
          {% for row in search %}
             <tr>
@@ -47,6 +87,10 @@
                <td>{{row["summary"]}}</td>
                <td>{{row['temperatureMin']}}</td>
                <td>{{row['temperatureMax']}}</td>
+               <td>{{row['precipIntensity']}}</td>
+               <td>{{row['precipProbability']}}</td>
+               <td>{{row['precipType']}}</td>
+               <td>{{row['daylight']}}</td>
             </tr>
           
          {% endfor %}

@@ -6,9 +6,13 @@
          <thead>
             <td>City</td>
             <td>Time</td>
-            <td>summary</td>
-            <td>temperatureMin</td>
-            <td>temperatureMax</td>
+            <td>Summary</td>
+            <td>Minimum Temperature</td>
+            <td>Maximum Temperature</td>
+            <td>Precipitation Intensity</td>
+            <td>Precipitation Probability</td>
+            <td>Precipitation Type</td>
+            <td>Daylight</td>
          </thead>
 
          {% for row in rows %}
@@ -18,6 +22,10 @@
                <td>{{row["summary"]}}</td>
                <td>{{row['temperatureMin']}}</td>
                <td>{{row['temperatureMax']}}</td>
+               <td>{{row['precipIntensity']}}</td>
+               <td>{{row['precipProbability']}}</td>
+               <td>{{row['precipType']}}</td>
+               <td>{{row['daylight']}}</td>
             </tr>
          {% endfor %}
       </table>

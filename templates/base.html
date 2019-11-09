@@ -5,7 +5,7 @@
     <meta charset = "UTF-8" >
     <meta content = "width=device-width, initial-scale=1.0" name = "viewport" >
     <meta content = "ie=edge" http-equiv = "X-UA-Compatible" >
-    <title >DBMS</title >
+    <title>Weather Prediction</title >
     <link crossorigin = "anonymous"
           href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity = "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -13,6 +13,8 @@
     
     <link href = "https://fonts.googleapis.com/css?family=Lobster|Nixie+One&display=swap" rel = "stylesheet" >
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="shortcut icon" href="static/weather/favicon.ico">
+
 
 
     
@@ -74,13 +76,14 @@
     }
 
     tr:nth-child(even) {background-color: #f2f2f2;}
-    tr:hover {background-color:#f5f5f5;}
+
+    tr:hover {background-color:#75a8a8;}
         
         #boxhead{
             box-radius:0px;
         }
     
-    /*loading for updating*/
+    /*loading for updating #84c8c1 b9ac97*/
         #loader {
       border: 16px solid #f3f3f3; /* Light grey */
       border-top: 16px solid #3498db; /* Blue */
@@ -132,7 +135,7 @@
     }
 
  
-    </style >
+  </style >
 
 </head >
 
@@ -170,16 +173,14 @@
         
         <div class = "py-0 d-flex flex-md-row justify-content-around flex-column" >
             <div class = "mb-0 pb-0" >
-                <p class = "text-light small text-center p-2 mb-0" >some text
-                    <a class = "text-warning" href = "https://github.com/linuelza99" >
-                        Linu 
-                    </a >
+                <p class = "text-light small text-center p-2 mb-0" >Flask + SQLite
+                    
                 </p >
             </div >
             <div class = "mb-0 pb-0" >
                 <p class = "text-light small text-center p-2 mb-0" >Made with
-                    <a class = "text-warning" href = "https://openweathermap.org/api" >
-                        (https://openweathermap.org/api)
+                    <a class = "text-warning" href = "https://darksky.net/dev" >
+                        (https://darksky.net/dev)
                     </a >
                 </p >
             </div >
@@ -190,7 +191,8 @@
         
         <div class = "mb-0 pb-1" >
             <p class = "text-light small text-center p-2"
-               style = "padding-bottom:0px;margin-bottom:0px" >&copy; Weather | Designed by Linu,Neil,Ishan,Varchas </p >
+               style = "padding-bottom:0px;margin-bottom:0px" >&copy; Weather Prediction | Designed by 
+               <a class = "text-warning" href = "https://github.com/linuelza99" >Linu </a >,Neil,<a class = "text-warning" href = "https://github.com/IshanMathew" >Ishan</a>,Varchas </p >
         </div >
     
     </div >
