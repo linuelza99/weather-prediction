@@ -120,7 +120,7 @@ def historic():
             command+=" and temperatureMax"+request.form['maxTempCompare']+""+request.form['maxTempVal']+""
         if request.form.get('precipIntensity'):
             command+=" and precipIntensity"+request.form['precipIntensityCompare']+""+request.form['precipIntensityVal']+""
-        command+=" order by time"
+        command+=" order by time desc"
         print(command)
         """if (city!='All'):
             cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where city=? and time>? and time<=?",(city,start_date,end_date))
