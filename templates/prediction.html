@@ -1,1 +1,32 @@
 {% extends "base.html" %}
+
+
+{% block content %}
+
+<div>
+	<form action = "{{url_for('prediction')}}" method = "POST">
+          Select location for prediction:<br>
+          <select name="city" class="form-control" id="city" required>
+            {% for row in list_of_locations %}
+
+              <option value="{{ row['place'] }}">{{ row['place'] }}</option>
+            
+            {% endfor %}
+        </select>
+        <br>
+       <center><button class="w3-bar-item w3-button w3-teal" type="submit" name ="btn" value="regression">Predict with Regression</button>
+       <button class="w3-bar-item w3-button w3-teal" type="submit" name ="btn" value="neuralnetwork">Predict with Neural Network</button>
+   <button class="w3-bar-item w3-button w3-teal" type="submit" name ="btn" value="arima">Predict with ARIMA</button></center>
+       </form>
+	<div>
+    {% if method!=NULL %}
+    {% if method!=regression %}
+    {%for r in results%}
+    <p>{{r}}</p>
+    {% endfor %}
+     {% endif %}
+     {% endif %}
+  </div>
+</div>
+
+{% endblock %}
