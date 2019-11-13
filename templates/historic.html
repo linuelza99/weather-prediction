@@ -6,7 +6,7 @@
   <center><h2>Historic Weather Data</h2>
 <h6> Choose the parameters you want to filter with by clicking on the approproate checkboxes.</h6></center><br>
 	<form action = "{{url_for('historic')}}" method = "POST">
-          <input type="checkbox" name="citycheck" value="city"> City<br>
+          <input type="checkbox" name="citycheck" value="city"> Location<br>
           <select name="city" class="form-control" id="city" required>
             {% for row in list_of_locations %}
 
