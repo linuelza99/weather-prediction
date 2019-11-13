@@ -49,7 +49,9 @@ import time
 import datetime
 import os
 
-#ForNN
+#Forother
+
+from apscheduler.scheduler import Scheduler
 
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
@@ -79,6 +81,14 @@ url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units={}&appid={}'
 def get_weather_data(city):
     r = requests.get(url.format(city, unit, key)).json()
     return r
+
+def update_scheduler():
+    print('Updating.....')
+    update()
+
+sched = Scheduler()
+sched.add_interval_job(update_scheduler, days=1)
+sched.start()
 
 
 @app.route('/current')
@@ -304,8 +314,8 @@ def update():
         if row == None:
             break
         listOfLocations_db.add(row)
-    print("LIST OF LOCATION",listOfLocations_db)
-    print("SETTINGS",settings.LOCATIONS1)
+    print("LIST OF LOCATIONS",listOfLocations_db)
+    #print("SETTINGS",settings.LOCATIONS1)
 
     con.close()
    
