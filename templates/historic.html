@@ -8,7 +8,13 @@
 	<form action = "{{url_for('historic')}}" method = "POST">
           <input type="checkbox" name="citycheck" value="city"> City<br>
           <select name="city" class="form-control" id="city" required>
-            <option value="Tamil Nadu">Tamil Nadu</option>
+            {% for row in list_of_locations %}
+
+              <option value="{{ row['place'] }}">{{ row['place'] }}</option>
+            
+            {% endfor %}
+
+            <!--<option value="Tamil Nadu">Tamil Nadu</option>
             <option value="Telangana">Telangana</option>
             <option value="Madhya Pradesh">Madhya Pradesh</option>
             <option value="Haryana">Haryana</option>
@@ -29,7 +35,8 @@
             <option value="Goa">Goa</option>
             <option value="Jammu and Kashmir">Jammu and Kashmir</option>
             <option value="Punjab">Punjab</option>
-            <option value="Mangalore">Mangalore</option>
+            <option value="Mangalore">Mangalore</option>-->
+            
 
           </select><br>
           <input type="checkbox" name="temperatureMin" value="temperatureMin"> Minimum temperature 

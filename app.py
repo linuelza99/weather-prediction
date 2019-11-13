@@ -122,32 +122,26 @@ def historic():
             command+=" and precipIntensity"+request.form['precipIntensityCompare']+""+request.form['precipIntensityVal']+""
         command+=" order by time desc"
         print(command)
-        """if (city!='All'):
-            cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where city=? and time>? and time<=?",(city,start_date,end_date))
-        else:
-            cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where time>? and time<=?",(start_date,end_date))
-        """
-        #cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data where time>? and time<=?",(start_date,end_date))
         cur.execute(command)
-        
-        
         search = cur.fetchall();
+        
         cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data")
         rows = cur.fetchall();
+        
+        cur.execute("select * from locations")
+        list_of_locations = cur.fetchall()
 
-
-        return render_template('historic.html',rows=rows,search=search)
+        return render_template('historic.html',rows=rows,search=search,list_of_locations=list_of_locations)
     else:
-        return render_template("historic.html")
+        #return render_template("historic.html")
         con = sqlite3.connect('weather.db')
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
-        cur.execute("select city,time,summary,temperatureMin,temperatureMax,precipIntensity,precipProbability,precipType,daylight from weather_data")
+        cur.execute("select * from locations")
 
-        rows = cur.fetchall();
-        print(rows)
-        return render_template("list.html",rows = rows)
+        list_of_locations = cur.fetchall();
+        return render_template("historic.html",list_of_locations = list_of_locations)
 
 @app.route('/')
 def main():
@@ -258,6 +252,23 @@ def update():
 
     existing_data = readcsv(settings.WEATHER_HISTORY_FILE)
     existing_days_and_locations = get_existing_dates_and_locations(existing_data)
+
+    con = sqlite3.connect("weather.db")
+    cur = con.cursor()
+    cur.execute("select * from locations")
+    listOfLocations_db=set(["a", "b","c"])
+    listOfLocations_db.clear()
+    while True:
+        row = cur.fetchone()
+        if row == None:
+            break
+        listOfLocations_db.add(row)
+    print(listOfLocations_db)
+    print('HI')
+
+    con.close()
+   
+
     expected_days_and_locations = get_expected_dates_and_locations(settings.DAYS_BACK, settings.LOCATIONS)
     missing_days_and_locations = expected_days_and_locations - existing_days_and_locations
     missing_data = get_weather_data(missing_days_and_locations)
@@ -271,7 +282,31 @@ def update():
 
     return render_template('update.html')
 
+@app.route('/locations',methods = ['POST','GET'])
+def locations_from_db():
+    conn = sqlite3.connect('weather.db')
+    print("Opened database successfully")
+    conn.execute('CREATE TABLE IF NOT EXISTS locations (place TEXT, latitude TEXT, longitude TEXT)')
 
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+    cur.execute("select * from locations")
+    list_of_locations = cur.fetchall();
+    if request.method == 'POST':
+        place = request.form['place']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
+        
+        cur.execute("INSERT INTO locations values(?,?,?)",(place,latitude,longitude))
+        conn.commit()
+
+        cur.execute("select * from locations")
+        list_of_locations = cur.fetchall();
+
+
+    conn.close()
+    return render_template('locations.html',list_of_locations=list_of_locations)
+    
 
 @app.route('/prediction')
 def prediction():
