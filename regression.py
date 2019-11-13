@@ -1,6 +1,9 @@
+
 #import matplotlib
 #import matplotlib.pyplot as plt
 import numpy as np
+
+
 import pandas as pd
 import statsmodels.api as sm
 from sklearn.linear_model import LinearRegression
@@ -57,6 +60,7 @@ print(newdf)
 df.index = pd.to_datetime(df.index)
 newdf.index = pd.to_datetime(newdf.index)
 
+
 features = [
         'precipIntensity', 'precipIntensityMax',
         'precipProbability',
@@ -88,6 +92,7 @@ for feature in features:
             for N in range(1, 4):
                derive_nth_day_feature(df, feature, N)
 
+
 print("Dataframe with nth day features: " , df)
 
 to_remove = [
@@ -113,7 +118,7 @@ spread = df.describe().T
 IQR = spread['75%'] - spread['25%']
 
 # create an outliers column which is either 3 IQRs below the first quartile or
-# 3 IQRs above the third quartile   
+
 spread['outliers'] = (spread['min'] <(spread['25%'] -(3 * IQR))) | (spread['max'] > (spread['75%'] + 3 * IQR))
 #print(spread)
 #print(spread.iloc[spread.outliers,])
@@ -159,6 +164,7 @@ def stepwise_selection(X,
     included = list(initial_list)
     #print("Initial list : ", initial_list)
     
+
     while True:
         #print("List:", included)
         changed = False
@@ -215,3 +221,4 @@ print('The Mean Absolute Error: %.2f degrees celcius' % mean_absolute_error(
     y_test, prediction))
 print('The Median Absolute Error: %.2f degrees celcius' %
       median_absolute_error(y_test, prediction))
+
