@@ -87,7 +87,7 @@ def update_scheduler():
     update()
 
 sched = Scheduler()
-sched.add_interval_job(test_scheduler, days=1)
+sched.add_interval_job(update_scheduler, days=1)
 sched.start()
 
 
