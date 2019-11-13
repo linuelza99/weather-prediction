@@ -81,6 +81,7 @@ def get_weather_data(city):
     r = requests.get(url.format(city, unit, key)).json()
     return r
 
+
 def update_scheduler():
     print('Updating.....')
     update()
