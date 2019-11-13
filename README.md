@@ -1,7 +1,9 @@
 # Weather Prediction Flask 
 
 <b>
-Project still in progress</b>
+Install flask and all the requirements.
+Run app.py.
+</b>
 <br>
 <br>
 

@@ -263,13 +263,14 @@ def update():
         if row == None:
             break
         listOfLocations_db.add(row)
-    print(listOfLocations_db)
-    print('HI')
+    print("LIST OF LOCATION",listOfLocations_db)
+    print("SETTINGS",settings.LOCATIONS1)
 
     con.close()
    
 
-    expected_days_and_locations = get_expected_dates_and_locations(settings.DAYS_BACK, settings.LOCATIONS)
+    expected_days_and_locations = get_expected_dates_and_locations(settings.DAYS_BACK, listOfLocations_db)
+    #expected_days_and_locations = get_expected_dates_and_locations(settings.DAYS_BACK, settings.LOCATIONS)
     missing_days_and_locations = expected_days_and_locations - existing_days_and_locations
     missing_data = get_weather_data(missing_days_and_locations)
     writecsv(settings.WEATHER_HISTORY_FILE, required_fields + ['daylight'] + ['city'], existing_data + missing_data)
@@ -286,7 +287,7 @@ def update():
 def locations_from_db():
     conn = sqlite3.connect('weather.db')
     print("Opened database successfully")
-    conn.execute('CREATE TABLE IF NOT EXISTS locations (place TEXT, latitude TEXT, longitude TEXT)')
+    conn.execute('CREATE TABLE IF NOT EXISTS locations (place TEXT, latitude INTEGER, longitude INTEGER)')
 
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
@@ -297,12 +298,15 @@ def locations_from_db():
         latitude = request.form['latitude']
         longitude = request.form['longitude']
         
-        cur.execute("INSERT INTO locations values(?,?,?)",(place,latitude,longitude))
-        conn.commit()
+        if request.form['btn'] =='add':
+            cur.execute("INSERT INTO locations values(?,?,?)",(place,latitude,longitude))
+            conn.commit()
+        elif request.form['btn'] =='delete':
+            cur.execute("DELETE FROM locations where place=? and latitude=? and longitude=?",(place,latitude,longitude))
+            conn.commit()
 
         cur.execute("select * from locations")
         list_of_locations = cur.fetchall();
-
 
     conn.close()
     return render_template('locations.html',list_of_locations=list_of_locations)
