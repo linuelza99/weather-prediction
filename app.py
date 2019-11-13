@@ -50,6 +50,7 @@ import datetime
 import os
 
 #Forother
+
 from apscheduler.scheduler import Scheduler
 
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -81,7 +82,6 @@ def get_weather_data(city):
     r = requests.get(url.format(city, unit, key)).json()
     return r
 
-
 def update_scheduler():
     print('Updating.....')
     update()
@@ -89,6 +89,7 @@ def update_scheduler():
 sched = Scheduler()
 sched.add_interval_job(test_scheduler, days=1)
 sched.start()
+
 
 @app.route('/current')
 def index_get():
