@@ -11,6 +11,7 @@ required_fields = [
     "humidity","pressure","windSpeed","cloudCover","visibility","temperatureMin","temperatureMax"
 ]
 """
+tf.logging.set_verbosity(tf.logging.ERROR)
 
 required_fields = [
         'time' , 'precipIntensity', 'precipIntensityMax',
@@ -37,8 +38,8 @@ def derive_nth_day_feature(df, feature, N):
 df = pd.read_csv("weather.csv").set_index("time")
 df.index = pd.to_datetime(df.index)
 
-df = df.loc[df['city'] == "Mangalore"]
-
+city = str(input("Enter city: "))
+df = df.loc[df['city'] == city ]
 df = df.sort_values(by=['time'])
 df = df.resample('d').mean().dropna(how='all')
 
