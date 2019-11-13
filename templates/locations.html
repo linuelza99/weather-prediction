@@ -6,7 +6,7 @@
 	<h3 align='center'>
 		Locations currently in database
 	</h3>
-	<h4> Add location:</h4>
+	<h4> Add or delete location:</h4>
 	<center>
 	<form action = "{{url_for('locations_from_db')}}" method = "POST">
 		Place:
@@ -16,7 +16,8 @@
 		Longtitude:
 		<input type = "text" name = "longitude" required/> <br>
 		<br>
-		<button class="w3-bar-item w3-button w3-teal" type="submit">Add</button>
+		<button class="w3-bar-item w3-button w3-teal" type="submit" name="btn" value="add">Add</button>
+		<button class="w3-bar-item w3-button w3-teal" type="submit" name="btn" value="delete">Delete</button>
 	
 	</form>
 	</center>

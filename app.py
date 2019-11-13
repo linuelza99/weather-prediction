@@ -297,12 +297,15 @@ def locations_from_db():
         latitude = request.form['latitude']
         longitude = request.form['longitude']
         
-        cur.execute("INSERT INTO locations values(?,?,?)",(place,latitude,longitude))
-        conn.commit()
+        if request.form['btn'] =='add':
+            cur.execute("INSERT INTO locations values(?,?,?)",(place,latitude,longitude))
+            conn.commit()
+        elif request.form['btn'] =='delete':
+            cur.execute("DELETE FROM locations where place=? and latitude=? and longitude=?",(place,latitude,longitude))
+            conn.commit()
 
         cur.execute("select * from locations")
         list_of_locations = cur.fetchall();
-
 
     conn.close()
     return render_template('locations.html',list_of_locations=list_of_locations)
