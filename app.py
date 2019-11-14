@@ -440,6 +440,8 @@ def prediction():
 
                 warnings.filterwarnings("ignore") # specify to ignore warning messages
 
+                aicval = float('inf')
+
                 for param in pdq:
                     for param_seasonal in seasonal_pdq:
                         try:
@@ -450,6 +452,10 @@ def prediction():
                                                             enforce_invertibility=False)
 
                             results = mod.fit()
+                            if results.aic < aicval:
+                                acival = results.aic 
+                                trend = param
+                                seasonaltrend = param_seasonal
 
                             #print('ARIMA{}x{}12 - AIC:{}'.format(param, param_seasonal, results.aic))
                         except:
@@ -457,8 +463,8 @@ def prediction():
 
 
                 mod = sm.tsa.statespace.SARIMAX(y,
-                                                order=(1, 1, 1),
-                                                seasonal_order=(1, 1, 0, 12),
+                                                order = (trend),
+                                                seasonal_order = (seasonaltrend),
                                                 enforce_stationarity=True,
                                                 enforce_invertibility=False)
 
